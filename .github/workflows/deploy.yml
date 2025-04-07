@@ -55,7 +55,6 @@ jobs:
         run: |
           echo "Deploying the backend..."
             
-            # Check if secrets are present only if required
             if [ "${{ secrets.DB_PASSWORD }}" == "" ] || [ "${{ secrets.API_KEY }}" == "" ] || [ "${{ secrets.JWT_SECRET }}" == "" ]; then
               echo "Secrets are missing, but backend deployment is skipped for now."
             else
@@ -64,7 +63,6 @@ jobs:
               echo "Prepare for future deployments (e.g., Docker, AWS, Azure)."
             fi
 
-          # Navigate to backend directory
           cd server          
           echo "Using secret environment variables..."
           echo "Prepare for future deployments (e.g., Docker, AWS, Azure)."
@@ -125,3 +123,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: client/build
+          publish_branch: gh-pages
