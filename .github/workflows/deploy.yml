@@ -59,21 +59,20 @@ jobs:
               echo "Secrets are missing, but backend deployment is skipped for now."
             else
               echo "Using secrets for backend deployment..."
-              # Placeholder for actual deployment commands
+            
               echo "Prepare for future deployments (e.g., Docker, AWS, Azure)."
             fi
 
           cd server          
           echo "Using secret environment variables..."
           echo "Prepare for future deployments (e.g., Docker, AWS, Azure)."
-        ## echo "DB_PASSWORD=${DB_PASSWORD}" # Optional: For debugging (remove in production)
-        ## echo "API_KEY=${API_KEY}"         # Optional: For debugging (remove in production)
-        # Replace the following with your actual backend deployment commands
-        ## docker build -t your-backend-image:latest .
-        ## docker run -d -p 80:80 \
-        ##  --env DB_PASSWORD=${DB_PASSWORD} \
-        ## --env API_KEY=${API_KEY} \
-        ## your-backend-image:latest
+          echo "DB_PASSWORD=${DB_PASSWORD}" # Optional: For debugging (remove in production)
+          echo "API_KEY=${API_KEY}"         # Optional: For debugging (remove in production)
+          docker build -t your-backend-image:latest .
+          docker run -d -p 80:80 \
+            --env DB_PASSWORD=${DB_PASSWORD} \
+            --env API_KEY=${API_KEY} \
+            your-backend-image:latest
   frontend:
     name: Build and Deploy Frontend
     runs-on: ubuntu-latest
