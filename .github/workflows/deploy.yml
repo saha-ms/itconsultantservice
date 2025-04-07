@@ -1,0 +1,123 @@
+name: Backend, Frontend, and GitHub Pages Deployment
+
+on:
+  push:
+    branches:
+      - main # Trigger workflow when pushing to the main branch
+
+jobs:
+  backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Adjust this to match your backend's Node.js version
+
+      # Step 3: Cache dependencies
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 4: Install dependencies
+      - name: Install Backend Dependencies
+        run: |
+          cd server
+          npm install
+
+      # Step 5: Run linting and tests
+      - name: Run Backend Linting
+        run: |
+          cd server
+          npm run lint
+      - name: Run Backend Tests
+        run: |
+          cd server
+          npm test
+
+      # Step 6: Deploy Backend
+      - name: Deploy Backend
+        env: # Environment variables from GitHub Secrets
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          echo "Deploying the backend..."
+
+          # Verify that secrets are set
+          if [ -z "$DB_PASSWORD" ] || [ -z "$API_KEY" ] || [ -z "$JWT_SECRET" ]; then
+            echo "Missing one or more required secrets. Deployment aborted."
+            exit 1
+          fi
+
+          # Navigate to backend directory
+          cd server          
+          echo "Using secret environment variables..."
+          echo "Prepare for future deployments (e.g., Docker, AWS, Azure)."
+        ## echo "DB_PASSWORD=${DB_PASSWORD}" # Optional: For debugging (remove in production)
+        ## echo "API_KEY=${API_KEY}"         # Optional: For debugging (remove in production)
+        # Replace the following with your actual backend deployment commands
+        ## docker build -t your-backend-image:latest .
+        ## docker run -d -p 80:80 \
+        ##  --env DB_PASSWORD=${DB_PASSWORD} \
+        ## --env API_KEY=${API_KEY} \
+        ## your-backend-image:latest
+  frontend:
+    name: Build and Deploy Frontend
+    runs-on: ubuntu-latest
+    needs: backend # Ensure backend job completes first
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Step 3: Cache dependencies
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Step 4: Install dependencies
+      - name: Install Frontend Dependencies
+        run: |
+          cd client
+          npm install
+
+      # Step 5: Run linting for frontend
+      - name: Run Frontend Linting
+        run: |
+          cd client
+          npm run lint
+
+      # Step 6: Build frontend
+      - name: Build Frontend
+        run: |
+          cd client
+          npm run build
+
+      # Step 7: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: client/build
