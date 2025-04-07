@@ -51,6 +51,7 @@ jobs:
         env: # Environment variables from GitHub Secrets
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           API_KEY: ${{ secrets.API_KEY }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
         run: |
           echo "Deploying the backend..."
 
