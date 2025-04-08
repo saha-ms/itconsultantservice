@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Backend Container
-        run: docker build -t backend-container ./server
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest ./server
 
       - name: Run Backend Container
         env:
@@ -27,7 +27,7 @@ jobs:
           docker run -d --name backend-container -p 5000:5000 \
             --env DB_PASSWORD=${DB_PASSWORD} \
             --env API_KEY=${API_KEY} \
-            backend-container
+            ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
 
       - name: Wait for Backend to Initialize
         run: sleep 10
@@ -41,9 +41,20 @@ jobs:
           docker stop backend-container
           docker rm backend-container
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Backend Image to GHCR
+        run: docker push ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
+
   frontend:
     name: Build and Deploy Frontend
     runs-on: ubuntu-latest
+    needs: backend # Keep this if your frontend deployment truly depends on backend success
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -68,3 +79,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: client/build
+          publish_branch: gh-pages # Explicitly specify the target branch
