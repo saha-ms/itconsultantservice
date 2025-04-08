@@ -1,47 +1,42 @@
-Frontend README.md
+IT Consultant Service - Frontend
+This is the frontend of the IT Consultant Service application, built with React. It provides a dynamic, responsive interface for users to explore IT services, submit inquiries, and interact seamlessly with the backend.
 
-# IT Consultant Service - Frontend
+Features
+Dynamic routing with React Router for navigation.
 
-This is the frontend of the IT Consultant Service application, built with React. It provides a user-friendly, responsive interface for customers to interact with the platform.
+Integration with backend APIs for real-time data updates.
 
----
+Component-based architecture for maintainability and scalability.
 
-## **Features**
-- Dynamic routing with React Router.
-- Component-based architecture for scalability.
-- API integration with the backend for real-time data.
-- Optimized for both desktop and mobile devices.
+Optimized for both desktop and mobile devices.
 
----
+Technologies Used
+React: Frontend library for building user interfaces.
 
-## **Technologies Used**
-- **React**: For building the user interface.
-- **React Router**: For handling routing.
-- **CSS**: For styling and layout.
+React Router: For page navigation and routing.
 
----
+CSS: For styling and responsive layouts.
 
-## **Project Structure**
-
+Project Structure
 client/
 ├── public/                 # Public assets (HTML, favicon, etc.)
 │   ├── index.html          # Main HTML file
-│   └── assets/             # Static assets like images and logos
+│   └── assets/             # Static assets (images, logos)
 ├── src/                    # Source code
 │   ├── assets/             # Fonts, images, etc.
 │   ├── components/         # Reusable React components
 │   ├── hooks/              # Custom React hooks
-│   ├── pages/              # Pages for different routes
+│   ├── pages/              # Pages for routing (Home, Contact, etc.)
 │   ├── styles/             # CSS styles
 │   ├── utils/              # Utility functions
 │   ├── App.js              # Main application component
 │   ├── index.js            # Entry point for React
 │   └── App.css             # Global styles
+├── Dockerfile              # Docker configuration for frontend
 ├── .env.local              # Environment variables for development
 ├── .env.production.env     # Environment variables for production
-├── Dockerfile              # Docker configuration for frontend
 ├── package.json            # Project dependencies
-└── README.md               # Documentation
+└── README.md               # Documentation for the frontend
 Setup
 Prerequisites
 Node.js (v16 or later)
@@ -57,32 +52,37 @@ Install dependencies:
 
 bash
 npm install
-Run Development Server
-bash
-npm start
-The application will start at http://localhost:3000.
-
 Environment Variables
-Create .env.local for development:
+Create a .env.local file for development:
 
 env
 REACT_APP_API_URL=http://localhost:5000
-Create .env.production.env for production:
+Create a .env.production.env file for production:
 
 env
-REACT_APP_API_URL=https://your-backend-url.com
-Build for Production
-Generate a production-ready build:
+REACT_APP_API_URL=https://your-backend-domain.com
+Run Frontend Server
+Start the development server:
 
 bash
-npm run build
-Deploy
-Use GitHub Pages for deployment:
+npm start
+The frontend application will run at http://localhost:3000.
+
+Docker
+Build and Run Frontend Container
+Build the Docker image:
 
 bash
-gh-pages -d build
+docker build -t ghcr.io/<repository_owner>/itconsultantservice-frontend:latest .
+Run the container:
+
+bash
+docker run -p 3000:3000 --env-file .env.local ghcr.io/<repository_owner>/itconsultantservice-frontend:latest
+API Integration
+This frontend application interacts with the backend APIs to fetch and display data. Ensure the backend server is running at http://localhost:5000 during development.
+
 Testing
-Run tests:
+Run frontend tests:
 
 bash
 npm test
