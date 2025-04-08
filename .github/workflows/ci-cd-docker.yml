@@ -34,7 +34,7 @@ jobs:
           docker run -d --name backend-container -p 5000:5000 \
             --env DB_PASSWORD=${DB_PASSWORD} \
             --env API_KEY=${API_KEY} \
-            ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend1:latest
+            ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
 
       - name: Wait for Backend to Initialize
         run: sleep 10
