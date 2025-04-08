@@ -1,29 +1,23 @@
-//import logo from './logo.svg';
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Services from './pages/Services';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import FAQs from './pages/FAQs';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import { getPublicUrl } from './utils/urlHelper';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/faqs" element={<FAQs />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <Routes>
+      <Route path={getPublicUrl("/")} element={<Home />} />
+      <Route path={getPublicUrl("/about-us")} element={<AboutUs />} />
+      <Route path={getPublicUrl("/services")} element={<Services />} />
+      <Route path={getPublicUrl("/contact")} element={<Contact />} />
+      <Route path={getPublicUrl("/blog")} element={<Blog />} />
+      <Route path={getPublicUrl("/faqs")} element={<FAQs />} />
+    </Routes>
   );
 }
 
