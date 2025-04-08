@@ -1,0 +1,74 @@
+name: Backend and Frontend CI/CD with Docker
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on pushes to the main branch
+
+jobs:
+  backend:
+    name: Build and Test Backend Container
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Build Backend Docker Container
+      - name: Build Backend Container
+        run: |
+          docker build -t backend-container ./server
+
+      # Step 3: Run Backend Container and Execute Tests
+      - name: Run and Test Backend Container
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          API_KEY: ${{ secrets.API_KEY }}
+        run: |
+          docker run -d --name backend-container -p 5000:5000 \
+            --env DB_PASSWORD=${DB_PASSWORD} \
+            --env API_KEY=${API_KEY} \
+            backend-container
+          
+          # (Optional) Add backend-specific test commands here
+          echo "Backend container is running for testing."
+          # Example: Verify if the backend endpoint is working
+          curl -f http://localhost:5000/health || (echo "Backend tests failed" && exit 1)
+
+      # Step 4: Stop Backend Container
+      - name: Stop and Clean Up Backend Container
+        run: |
+          docker stop backend-container
+          docker rm backend-container
+
+  frontend:
+    name: Build and Deploy Frontend Container
+    runs-on: ubuntu-latest
+    needs: backend  # Ensure frontend runs only after backend passes
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Build Frontend Docker Container
+      - name: Build Frontend Container
+        run: |
+          docker build -t frontend-container ./client
+
+      # Step 3: Test Frontend Build Locally (Optional)
+      - name: Run Frontend Container for Testing
+        run: |
+          docker run -d --name frontend-container -p 3000:80 frontend-container
+          # Example: Verify frontend is running
+          curl -f http://localhost:3000 || (echo "Frontend tests failed" && exit 1)
+
+      # Step 4: Deploy Frontend to GitHub Pages
+      - name: Stop Frontend Container
+        run: |
+          docker stop frontend-container
+          docker rm frontend-container
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: client/build
