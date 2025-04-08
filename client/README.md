@@ -1,3 +1,26 @@
+Organize your file structure as follows:
+
+
+src/
+ ├── components/
+ │    ├── Navbar.js
+ │    ├── Footer.js
+ ├── pages/
+ │    ├── Home.js
+ │    ├── AboutUs.js
+ │    ├── Services.js
+ │    ├── Contact.js
+ │    ├── Blog.js
+ │    ├── FAQs.js
+ ├── App.js
+ ├── index.js
+ ├── index.css
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
