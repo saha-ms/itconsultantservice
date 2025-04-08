@@ -24,7 +24,7 @@ jobs:
           password: ${{ secrets.MY_SECRET_TOKEN }}
 
       - name: Pull Backend Image from GHCR
-        run: docker pull ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend1:latest
+        run: docker pull ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
 
       - name: Run Backend Container for Testing
         env:
