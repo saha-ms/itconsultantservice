@@ -1,23 +1,24 @@
 IT Consultant Service - Frontend
-This is the frontend of the IT Consultant Service application, built with React. It provides a dynamic, responsive interface for users to explore IT services, submit inquiries, and interact seamlessly with the backend.
+This is the frontend of the IT Consultant Service application, built with React. It provides a dynamic, responsive user interface for customers to explore IT services, submit inquiries, and seamlessly interact with the backend.
 
 Features
-Dynamic routing with React Router for navigation.
+Dynamic routing with React Router for seamless navigation.
 
 Integration with backend APIs for real-time data updates.
 
-Component-based architecture for maintainability and scalability.
+Component-based architecture for reusability and scalability.
 
-Optimized for both desktop and mobile devices.
+Optimized for desktop and mobile devices.
 
 Technologies Used
 React: Frontend library for building user interfaces.
 
-React Router: For page navigation and routing.
+React Router: For managing routes and navigation.
 
 CSS: For styling and responsive layouts.
 
 Project Structure
+plaintext
 client/
 ├── public/                 # Public assets (HTML, favicon, etc.)
 │   ├── index.html          # Main HTML file
@@ -26,7 +27,7 @@ client/
 │   ├── assets/             # Fonts, images, etc.
 │   ├── components/         # Reusable React components
 │   ├── hooks/              # Custom React hooks
-│   ├── pages/              # Pages for routing (Home, Contact, etc.)
+│   ├── pages/              # Pages for different routes (Home, Contact, etc.)
 │   ├── styles/             # CSS styles
 │   ├── utils/              # Utility functions
 │   ├── App.js              # Main application component
@@ -36,7 +37,7 @@ client/
 ├── .env.local              # Environment variables for development
 ├── .env.production.env     # Environment variables for production
 ├── package.json            # Project dependencies
-└── README.md               # Documentation for the frontend
+└── README.md               # Documentation
 Setup
 Prerequisites
 Node.js (v16 or later)
@@ -53,11 +54,13 @@ Install dependencies:
 bash
 npm install
 Environment Variables
-Create a .env.local file for development:
+Development
+Create a .env.local file in the client directory:
 
 env
 REACT_APP_API_URL=http://localhost:5000
-Create a .env.production.env file for production:
+Production
+Create a .env.production.env file in the client directory:
 
 env
 REACT_APP_API_URL=https://your-backend-domain.com
@@ -66,10 +69,10 @@ Start the development server:
 
 bash
 npm start
-The frontend application will run at http://localhost:3000.
+The frontend will run at http://localhost:3000.
 
 Docker
-Build and Run Frontend Container
+Build and Run Frontend with Docker
 Build the Docker image:
 
 bash
@@ -79,7 +82,11 @@ Run the container:
 bash
 docker run -p 3000:3000 --env-file .env.local ghcr.io/<repository_owner>/itconsultantservice-frontend:latest
 API Integration
-This frontend application interacts with the backend APIs to fetch and display data. Ensure the backend server is running at http://localhost:5000 during development.
+Base URL: http://localhost:5000
+Endpoints
+Services: Retrieve all available services from the backend.
+
+Inquiries: Submit user inquiries to the backend for processing.
 
 Testing
 Run frontend tests:
