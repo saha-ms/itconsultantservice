@@ -1,4 +1,4 @@
-name: CI/CD Workflow with Docker
+name: CI/CD Workflow with Existing GHCR Images
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   backend:
-    name: Build and Test Backend
+    name: Test Backend with GHCR Image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -16,10 +16,17 @@ jobs:
       - name: Set up Docker
         uses: docker/setup-buildx-action@v2
 
-      - name: Build Backend Container
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest ./server
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Run Backend Container
+      - name: Pull Backend Image from GHCR
+        run: docker pull ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
+
+      - name: Run Backend Container for Testing
         env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           API_KEY: ${{ secrets.API_KEY }}
@@ -41,20 +48,10 @@ jobs:
           docker stop backend-container
           docker rm backend-container
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push Backend Image to GHCR
-        run: docker push ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
-
   frontend:
-    name: Build and Deploy Frontend
+    name: Deploy Frontend from Code to GitHub Pages
     runs-on: ubuntu-latest
-    needs: backend # Keep this if your frontend deployment truly depends on backend success
+    needs: backend # Optional: Keep if frontend deployment depends on backend tests passing
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -79,4 +76,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: client/build
-          publish_branch: gh-pages # Explicitly specify the target branch
+          publish_branch: gh-pages
+          # Optional: CNAME settings if you have a custom domain
+          # cname: yourdomain.com
