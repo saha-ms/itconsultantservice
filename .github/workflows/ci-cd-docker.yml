@@ -41,30 +41,30 @@ jobs:
           docker stop backend-container
           docker rm backend-container
 
-frontend:
-  name: Build and Deploy Frontend
-  runs-on: ubuntu-latest
-  steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+  frontend:
+    name: Build and Deploy Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 'lts/*'
-        cache: 'npm'
-        cache-dependency-path: 'client/package-lock.json'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+          cache-dependency-path: 'client/package-lock.json'
 
-    - name: Install Frontend Dependencies
-      working-directory: ./client
-      run: npm install
+      - name: Install Frontend Dependencies
+        working-directory: ./client
+        run: npm install
 
-    - name: Build Frontend
-      working-directory: ./client
-      run: npm run build
+      - name: Build Frontend
+        working-directory: ./client
+        run: npm run build
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: client/build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: client/build
