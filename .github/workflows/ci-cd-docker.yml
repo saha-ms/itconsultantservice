@@ -21,10 +21,10 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.MY_SECRET_TOKEN }}
 
       - name: Pull Backend Image from GHCR
-        run: docker pull ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
+        run: docker pull ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend1:latest
 
       - name: Run Backend Container for Testing
         env:
@@ -34,7 +34,7 @@ jobs:
           docker run -d --name backend-container -p 5000:5000 \
             --env DB_PASSWORD=${DB_PASSWORD} \
             --env API_KEY=${API_KEY} \
-            ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend:latest
+            ghcr.io/${{ github.repository_owner }}/itconsultantservice-backend1:latest
 
       - name: Wait for Backend to Initialize
         run: sleep 10
@@ -74,7 +74,7 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.MY_SECRET_TOKEN }}
           publish_dir: client/build
           publish_branch: gh-pages
           # Optional: CNAME settings if you have a custom domain
