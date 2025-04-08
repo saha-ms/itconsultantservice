@@ -6,6 +6,9 @@ services:
       context: ./server
     ports:
       - "5000:5000"
+    environment:
+      DB_PASSWORD: ${DB_PASSWORD}
+      API_KEY: ${API_KEY}
     restart: always
 
   frontend:
