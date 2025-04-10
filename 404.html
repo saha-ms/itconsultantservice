@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Page Not Found</title>
+  <script>
+    sessionStorage.redirect = location.pathname;
+    const basePath = '/itconsultantservice'; // Your repository name
+    const targetPath = basePath + (sessionStorage.redirect || '');
+    window.location.replace(targetPath);
+  </script>
+</head>
+<body>
+  </body>
+</html>
