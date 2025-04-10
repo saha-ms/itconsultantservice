@@ -1,4 +1,7 @@
 node_modules
+client/node_modules
+build
+client/build
 .env
-/build
+client/.env
 *Copy*
