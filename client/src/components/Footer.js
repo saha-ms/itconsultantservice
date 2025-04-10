@@ -63,8 +63,8 @@ const socialIconImage = {
 };
 
 // Optional hover effect for social icons
-const socialIconHoverStyle = {
-  opacity: 1,
-};
+////const socialIconHoverStyle = {
+ //// opacity: 1,
+////};
 
 export default Footer;
