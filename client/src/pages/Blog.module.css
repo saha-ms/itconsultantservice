@@ -1,0 +1,180 @@
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.main {
+  flex: 3;
+  padding-right: 20px;
+}
+
+.title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.blogList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.blogPreview {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.postTitle {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.postLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.postMeta {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.postExcerpt {
+  line-height: 1.6;
+  margin-bottom: 15px;
+  color: #495057;
+}
+
+.readMoreLink {
+  display: inline-block;
+  text-decoration: none;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.readMoreLink:hover {
+  text-decoration: underline;
+}
+
+.sidebar {
+  flex: 1;
+  padding-left: 20px;
+}
+
+.search,
+.categories,
+.recentPosts {
+  margin-bottom: 30px;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.search input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.search button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.categories h3,
+.recentPosts h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.categoryList,
+.recentPostList {
+  list-style: none;
+  padding: 0;
+}
+
+.categoryList li,
+.recentPostList li {
+  margin-bottom: 8px;
+}
+
+.categoryList a,
+.recentPostList a {
+  text-decoration: none;
+  color: #495057;
+}
+
+.categoryList a:hover,
+.recentPostList a:hover {
+  color: #007bff;
+}
+
+.recentPostDate {
+  font-size: 0.8rem;
+  color: #6c757d;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.paginationLink {
+  padding: 8px 12px;
+  margin: 0 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #333;
+}
+
+.paginationLink:hover {
+  background-color: #f8f9fa;
+}
+
+.paginationLink.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #eee;
+  color: #6c757d;
+  margin-top: 30px;
+}

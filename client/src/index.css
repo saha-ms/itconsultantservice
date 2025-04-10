@@ -1,8 +1,12 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  background-color: #f4f4f4; /* A light gray background for the whole page */
+  color: #333; /* Default text color on light background */
 }
+
 nav ul {
   list-style: none;
   display: flex;
@@ -16,6 +20,13 @@ nav ul li {
 footer {
   text-align: center;
   padding: 10px;
-  background-color: #333;
+  background-color: #278F49;
   color: white;
 }
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
