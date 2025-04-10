@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="refresh" content="0; URL='/itconsultantservice/'" />
-  </head>
-  <body>
-    <p>Redirecting... <a href="/itconsultantservice/">Click here</a> if not redirected.</p>
+<head>
+  <meta charset="utf-8">
+  <title>Page Not Found</title>
+  <script>
+    sessionStorage.redirect = location.pathname;
+    const basePath = '/itconsultantservice'; // Your repository name
+    const targetPath = basePath + (sessionStorage.redirect || '');
+    window.location.replace(targetPath);
+  </script>
+</head>
+<body>
   </body>
 </html>
